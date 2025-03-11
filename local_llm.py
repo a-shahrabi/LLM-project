@@ -9,7 +9,7 @@ class SimpleLLMChatBot:
         """Initialize the chat bot with predefined responses."""
         self.responses = [
             {
-                "patterns": ["hello", "hi", "hey", "greetings"],
+                "patterns": ["hello", "hi", "hey", "greetings", "hola"],
                 "replies": [
                     "Hello! How can I help you today?",
                     "Hi there! What can I assist you with?",
