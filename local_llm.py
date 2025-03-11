@@ -72,12 +72,7 @@ class SimpleLLMChatBot:
         
         # ASCII art for bot
         self.bot_avatar = """
-          _____
-         /     \\
-        | o   o |
-        |   ∧   |
-        |  \\_/  |
-         \\_____/
+          (-.-)
         """
     
     def clear_screen(self):
