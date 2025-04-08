@@ -23,3 +23,8 @@ if torch.cuda.is_available():
 
     print('There are %d GPU(s) available.' % torch.cuda.device_count())
     print('we will use the GPU:', torch.cuda.get_device_name(0))
+
+    # If not...
+else:
+    print('No GPU available, using the CPU instead.')
+    device = torch.device("cpu")
