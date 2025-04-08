@@ -28,3 +28,7 @@ if torch.cuda.is_available():
 else:
     print('No GPU available, using the CPU instead.')
     device = torch.device("cpu")
+
+#Loading the Emotions Dataset and Preprocessing it
+# Download the dataset
+wget.download('Emotions_small.csv')
