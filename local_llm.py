@@ -40,3 +40,16 @@ print(f"Number of messages in the dataset: {len(df)}")
 # Display 10 random rows from the DataFrame
 print("\nDisplaying 10 random rows from the DataFrame:")
 print(df.sample(10))
+
+# Limit the dataset to the first 1370 messages
+df = df.iloc[:1370]
+
+# Check for missing values and duplicated rows
+print("\nMissing values in the dataset:")
+print(df.isnull().sum())
+
+print("\nNumber of duplicated rows:", df.duplicated().sum())
+
+# Remove rows with missing values and duplicated messages
+df = df.dropna()
+df = df.drop_duplicates()
