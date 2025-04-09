@@ -32,3 +32,11 @@ else:
 #Loading the Emotions Dataset and Preprocessing it
 # Download the dataset
 wget.download('Emotions_small.csv')
+
+# Read the CSV file
+df = pd.read_csv('Emotions_small.csv', index_col=0)
+print(f"Number of messages in the dataset: {len(df)}")
+
+# Display 10 random rows from the DataFrame
+print("\nDisplaying 10 random rows from the DataFrame:")
+print(df.sample(10))
