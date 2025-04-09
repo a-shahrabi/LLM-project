@@ -53,3 +53,19 @@ print("\nNumber of duplicated rows:", df.duplicated().sum())
 # Remove rows with missing values and duplicated messages
 df = df.dropna()
 df = df.drop_duplicates()
+
+print("\nNumber of remaining messages after cleaning:", len(df))
+
+# Extract unique labels from the 'label' column
+unique_labels = df['label'].unique()
+print("\nUnique emotion labels:", unique_labels)
+
+# Create a dictionary to map string labels to numerical labels
+label_dict = {
+    'sadness': 0,
+    'joy': 1,
+    'love': 2,
+    'anger': 3,
+    'fear': 4,
+    'surprise': 5
+}
