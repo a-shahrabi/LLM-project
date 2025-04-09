@@ -69,3 +69,6 @@ label_dict = {
     'fear': 4,
     'surprise': 5
 }
+
+# Modify the 'label' column by replacing string labels with numerical labels
+df['label'] = df['label'].map(label_dict)
