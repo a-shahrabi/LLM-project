@@ -82,3 +82,11 @@ plt.ylabel('Frequency')
 plt.title('Distribution of Emotion Categories')
 plt.tight_layout()
 plt.show()
+
+# Preparing Text Data for BERT
+
+# Character and Word tokenization
+# Get the first Twitter message
+first_message = df['text'].iloc[0]
+print("\nFirst Twitter message:")
+print(first_message)
