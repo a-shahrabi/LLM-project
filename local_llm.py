@@ -90,3 +90,15 @@ plt.show()
 first_message = df['text'].iloc[0]
 print("\nFirst Twitter message:")
 print(first_message)
+
+# Character tokenization
+char_tokens = list(first_message)
+print("\nCharacter tokenized list:")
+print(char_tokens)
+print(f"Number of character tokens: {len(char_tokens)}")
+
+# Create a dictionary to map each character to a unique integer
+char_vocab = {}
+for char in char_tokens:
+    if char not in char_vocab:
+        char_vocab[char] = len(char_vocab)
