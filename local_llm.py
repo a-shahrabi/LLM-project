@@ -114,3 +114,16 @@ print(char_ids)
 one_hot = F.one_hot(torch.tensor(char_ids), num_classes=len(char_vocab))
 print("\nShape of the one-hot vector representing the message:")
 print(one_hot.shape)
+
+# Word tokenization
+word_tokens = first_message.split()
+print("\nWord tokenized list:")
+print(word_tokens)
+print(f"Number of word tokens: {len(word_tokens)}")
+
+print("\nDrawbacks of Character and Word Tokenization:")
+print("Character Tokenization:")
+print("- Results in very long sequences")
+print("- Loses semantic meaning of words")
+print("- Increases computational complexity")
+print("- Poor handling of out-of-vocabulary words")
