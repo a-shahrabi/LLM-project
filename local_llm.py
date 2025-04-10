@@ -102,3 +102,15 @@ char_vocab = {}
 for char in char_tokens:
     if char not in char_vocab:
         char_vocab[char] = len(char_vocab)
+
+        print(f"\nLength of character dictionary: {len(char_vocab)}")
+
+# Convert the first message to numerical format using the dictionary
+char_ids = [char_vocab[char] for char in char_tokens]
+print("\nNumerical representation of the first message:")
+print(char_ids)
+
+# Convert to one-hot vectors
+one_hot = F.one_hot(torch.tensor(char_ids), num_classes=len(char_vocab))
+print("\nShape of the one-hot vector representing the message:")
+print(one_hot.shape)
