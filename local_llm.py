@@ -72,3 +72,13 @@ label_dict = {
 
 # Modify the 'label' column by replacing string labels with numerical labels
 df['label'] = df['label'].map(label_dict)
+
+# Visualize class distributions
+plt.figure(figsize=(10, 6))
+df['label'].value_counts().sort_index().plot(kind='bar')
+plt.xticks(range(6), ['sadness', 'joy', 'love', 'anger', 'fear', 'surprise'], rotation=45)
+plt.xlabel('Emotion Categories')
+plt.ylabel('Frequency')
+plt.title('Distribution of Emotion Categories')
+plt.tight_layout()
+plt.show()
