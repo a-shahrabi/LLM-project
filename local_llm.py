@@ -133,3 +133,9 @@ print("- Cannot handle out-of-vocabulary words effectively")
 print("- Requires large vocabulary to cover most words")
 print("- Loses subword information (e.g., prefixes, suffixes)")
 print("- Cannot handle spelling variations well")
+
+# BERT Tokenizer
+from transformers import BertTokenizer
+# Load the BERT tokenizer
+print('\nLoading BERT tokenizer...')
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
