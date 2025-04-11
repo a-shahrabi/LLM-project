@@ -139,3 +139,8 @@ from transformers import BertTokenizer
 # Load the BERT tokenizer
 print('\nLoading BERT tokenizer...')
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
+
+# Report tokenizer properties
+print(f"Vocabulary size: {tokenizer.vocab_size}")
+print(f"Maximum length for inputs: {tokenizer.model_max_length}")
+print(f"Expected model inputs: {tokenizer.model_input_names}")
