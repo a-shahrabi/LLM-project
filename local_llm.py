@@ -144,3 +144,11 @@ tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=Tru
 print(f"Vocabulary size: {tokenizer.vocab_size}")
 print(f"Maximum length for inputs: {tokenizer.model_max_length}")
 print(f"Expected model inputs: {tokenizer.model_input_names}")
+
+# Find the maximum sentence length in the dataset
+max_len = 0
+for text in df['text']:
+    tokens = tokenizer.tokenize(text)
+    max_len = max(max_len, len(tokens) + 2)  # +2 for [CLS] and [SEP] tokens
+
+print(f"Maximum sentence length in the dataset (including [CLS] and [SEP]): {max_len}")
