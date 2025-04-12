@@ -372,3 +372,7 @@ print("\nToken IDs:")
 print(input_ids[299])
 print("\nAttention Mask:")
 print(attention_masks[299])
+
+# Decode the tokens to see what they represent
+print("\nDecoded tokens:")
+print(tokenizer.convert_ids_to_tokens(input_ids[299]))
