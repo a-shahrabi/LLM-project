@@ -156,3 +156,18 @@ print(f"Maximum sentence length in the dataset (including [CLS] and [SEP]): {max
 # Determine MAX_LEN (next highest power of 2)
 MAX_LEN = 2**int(np.ceil(np.log2(max_len)))
 print(f"MAX_LEN (next highest power of 2): {MAX_LEN}")
+
+# Encode all sentences in the dataset
+input_ids = []
+attention_masks = []
+
+for text in df['text']:
+    encoded_dict = tokenizer.encode_plus(
+        text,
+        add_special_tokens=True,
+        max_length=MAX_LEN,
+        padding='max_length',
+        truncation=True,
+        return_attention_mask=True,
+        return_tensors='pt',
+    )
