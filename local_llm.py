@@ -152,3 +152,7 @@ for text in df['text']:
     max_len = max(max_len, len(tokens) + 2)  # +2 for [CLS] and [SEP] tokens
 
 print(f"Maximum sentence length in the dataset (including [CLS] and [SEP]): {max_len}")
+
+# Determine MAX_LEN (next highest power of 2)
+MAX_LEN = 2**int(np.ceil(np.log2(max_len)))
+print(f"MAX_LEN (next highest power of 2): {MAX_LEN}")
