@@ -384,3 +384,11 @@ from sklearn.model_selection import train_test_split
 
 # Convert labels to tensor
 labels = torch.tensor(df['label'].values)
+
+# Convert labels to tensor
+labels = torch.tensor(df['label'].values)
+
+# Split the input_ids and labels into train and validation sets
+train_inputs, validation_inputs, train_labels, validation_labels = train_test_split(
+    input_ids, labels, random_state=41, test_size=0.1
+)
