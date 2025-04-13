@@ -376,3 +376,11 @@ print(attention_masks[299])
 # Decode the tokens to see what they represent
 print("\nDecoded tokens:")
 print(tokenizer.convert_ids_to_tokens(input_ids[299]))
+
+# Feeding the Data into BERT
+# Training and Validation Split
+from datasets import Dataset
+from sklearn.model_selection import train_test_split
+
+# Convert labels to tensor
+labels = torch.tensor(df['label'].values)
