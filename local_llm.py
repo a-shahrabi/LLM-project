@@ -385,10 +385,19 @@ from sklearn.model_selection import train_test_split
 # Convert labels to tensor
 labels = torch.tensor(df['label'].values)
 
-# Convert labels to tensor
-labels = torch.tensor(df['label'].values)
-
 # Split the input_ids and labels into train and validation sets
 train_inputs, validation_inputs, train_labels, validation_labels = train_test_split(
     input_ids, labels, random_state=41, test_size=0.1
 )
+
+# Split the attention_masks into train and validation sets
+train_masks, validation_masks, _, _ = train_test_split(
+    attention_masks, labels, random_state=41, test_size=0.1
+)
+
+# Create a DataFrame with the training data
+train_df = pd.DataFrame({
+    'input_ids': train_inputs.tolist(),
+    'attention_mask': train_masks.tolist(),
+    'label': train_labels.tolist()
+})
