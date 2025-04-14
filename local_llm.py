@@ -419,3 +419,14 @@ print("\nTraining dataset info:")
 print(train_dataset)
 print("\nValidation dataset info:")
 print(val_dataset)
+
+# Train the BertForSequenceClassification Model
+from transformers import BertForSequenceClassification
+
+# Load the BertForSequenceClassification model
+model = BertForSequenceClassification.from_pretrained(
+    "bert-base-uncased",
+    num_labels=6,
+    output_attentions=False,  # Whether the model returns attentions weights
+    output_hidden_states=False,  # Whether the model returns all hidden-states
+)
