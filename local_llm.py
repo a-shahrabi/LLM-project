@@ -401,3 +401,13 @@ train_df = pd.DataFrame({
     'attention_mask': train_masks.tolist(),
     'label': train_labels.tolist()
 })
+
+# Convert train_df to a Dataset
+train_dataset = Dataset.from_pandas(train_df)
+
+# Create a DataFrame with the validation data
+val_df = pd.DataFrame({
+    'input_ids': validation_inputs.tolist(),
+    'attention_mask': validation_masks.tolist(),
+    'label': validation_labels.tolist()
+})
