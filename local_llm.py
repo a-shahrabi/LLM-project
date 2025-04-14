@@ -411,3 +411,11 @@ val_df = pd.DataFrame({
     'attention_mask': validation_masks.tolist(),
     'label': validation_labels.tolist()
 })
+
+# Convert val_df to a Dataset
+val_dataset = Dataset.from_pandas(val_df)
+
+print("\nTraining dataset info:")
+print(train_dataset)
+print("\nValidation dataset info:")
+print(val_dataset)
