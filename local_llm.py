@@ -430,3 +430,15 @@ model = BertForSequenceClassification.from_pretrained(
     output_attentions=False,  # Whether the model returns attentions weights
     output_hidden_states=False,  # Whether the model returns all hidden-states
 )
+
+# Move model to the device
+model.to(device)
+
+# Define the compute_metrics function
+def compute_metrics(eval_pred):
+    labels = eval_pred.label_ids  # To access the label IDs
+    preds_list = eval_pred.predictions  # To access the list of predictions
+    preds = preds_list.argmax(-1)  # To decode the predictions using highest value of all classes
+    f1 = f1_score(labels, preds, average="weighted")
+    acc = accuracy_score(labels, preds)
+    return {"accuracy": acc, "f1": f1}
