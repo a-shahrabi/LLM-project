@@ -460,3 +460,17 @@ training_args = TrainingArguments(
     push_to_hub=False,
     log_level="error"
 )
+
+# Disable wandb
+import os
+os.environ['WANDB_DISABLED'] = 'true'
+
+# Initialize the Trainer
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    compute_metrics=compute_metrics,
+    train_dataset=train_dataset,
+    eval_dataset=val_dataset,
+    tokenizer=tokenizer
+)
