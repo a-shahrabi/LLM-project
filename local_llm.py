@@ -474,3 +474,11 @@ trainer = Trainer(
     eval_dataset=val_dataset,
     tokenizer=tokenizer
 )
+
+# Train the model
+print("\nTraining the model...")
+trainer.train()
+
+# Model Evaluation
+# Extract loss values and metrics from the training log
+training_logs = trainer.state.log_history
