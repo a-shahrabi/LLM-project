@@ -442,3 +442,21 @@ def compute_metrics(eval_pred):
     f1 = f1_score(labels, preds, average="weighted")
     acc = accuracy_score(labels, preds)
     return {"accuracy": acc, "f1": f1}
+
+    # Define the training arguments
+from transformers import Trainer, TrainingArguments
+
+training_args = TrainingArguments(
+    output_dir="bert-base-uncased-finetuned-emotion",
+    num_train_epochs=5,  # Number of training epochs (adjust as needed)
+    learning_rate=2e-5,  # Model learning rate
+    per_device_train_batch_size=64,  # Batch size
+    per_device_eval_batch_size=64,  # Batch size
+    weight_decay=0.01,
+    evaluation_strategy="epoch",
+    disable_tqdm=False,
+    report_to="none",
+    logging_steps=len(train_inputs) // 64,
+    push_to_hub=False,
+    log_level="error"
+)
