@@ -309,3 +309,16 @@ metrics_df = pd.DataFrame({
     'F1 Score': [log['eval_f1'] for log in eval_logs]
 })
 
+print("\nTraining and validation metrics for each epoch:")
+print(metrics_df)
+
+# Plot the training and validation loss
+plt.figure(figsize=(10, 6))
+plt.plot(metrics_df['Epoch'], metrics_df['Training Loss'], label='Training Loss')
+plt.plot(metrics_df['Epoch'], metrics_df['Validation Loss'], label='Validation Loss')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.title('Training and Validation Loss')
+plt.legend()
+plt.grid(True)
+plt.show()
