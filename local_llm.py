@@ -296,5 +296,16 @@ trainer.train()
 # Extract loss values and metrics from the training log
 training_logs = trainer.state.log_history
 
+# Separate train logs and eval logs
+train_logs = [log for log in training_logs if 'loss' in log and 'eval_loss' not in log]
+eval_logs = [log for log in training_logs if 'eval_loss' in log]
 
+# Create a DataFrame to display the metrics for each epoch
+metrics_df = pd.DataFrame({
+    'Epoch': range(1, len(eval_logs) + 1),
+    'Training Loss': [log['loss'] for log in train_logs],
+    'Validation Loss': [log['eval_loss'] for log in eval_logs],
+    'Accuracy': [log['eval_accuracy'] for log in eval_logs],
+    'F1 Score': [log['eval_f1'] for log in eval_logs]
+})
 
