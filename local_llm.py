@@ -322,3 +322,10 @@ plt.title('Training and Validation Loss')
 plt.legend()
 plt.grid(True)
 plt.show()
+
+# Get predictions for the validation dataset
+print("\nGenerating predictions for the validation dataset...")
+predictions = trainer.predict(val_dataset)
+
+# Decode the predictions
+preds = predictions.predictions.argmax(-1)
