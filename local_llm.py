@@ -329,3 +329,7 @@ predictions = trainer.predict(val_dataset)
 
 # Decode the predictions
 preds = predictions.predictions.argmax(-1)
+
+# Create a classification report
+print("\nClassification Report:")
+print(classification_report(validation_labels, preds, target_names=['sadness', 'joy', 'love', 'anger', 'fear', 'surprise']))
