@@ -333,3 +333,13 @@ preds = predictions.predictions.argmax(-1)
 # Create a classification report
 print("\nClassification Report:")
 print(classification_report(validation_labels, preds, target_names=['sadness', 'joy', 'love', 'anger', 'fear', 'surprise']))
+
+# Create a confusion matrix
+cm = confusion_matrix(validation_labels, preds)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=['sadness', 'joy', 'love', 'anger', 'fear', 'surprise'])
+plt.figure(figsize=(10, 8))
+disp.plot(cmap=plt.cm.Blues)
+plt.title('Confusion Matrix')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
