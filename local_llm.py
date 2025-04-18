@@ -374,3 +374,11 @@ def predict_emotion(text, model, tokenizer):
         return_attention_mask=True,
         return_tensors='pt',
     )
+
+    # Move tensors to the device
+    input_ids = encoded_dict['input_ids'].to(device)
+    attention_mask = encoded_dict['attention_mask'].to(device)
+    
+    # Get predictions
+    with torch.no_grad():
+        outputs = model(input_ids, attention_mask=attention_mask)
