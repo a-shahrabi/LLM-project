@@ -361,3 +361,16 @@ test_texts = [
     "If karma does not hit you in the face, I will.",
     "The toys R us advert makes me cry."
 ]
+
+# Function to predict emotion for a given text
+def predict_emotion(text, model, tokenizer):
+    # Tokenize the text
+    encoded_dict = tokenizer.encode_plus(
+        text,
+        add_special_tokens=True,
+        max_length=MAX_LEN,
+        padding='max_length',
+        truncation=True,
+        return_attention_mask=True,
+        return_tensors='pt',
+    )
