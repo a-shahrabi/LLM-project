@@ -382,3 +382,7 @@ def predict_emotion(text, model, tokenizer):
     # Get predictions
     with torch.no_grad():
         outputs = model(input_ids, attention_mask=attention_mask)
+
+        # Get the predicted label
+    logits = outputs.logits
+    predicted_class = torch.argmax(logits, dim=1).item()
