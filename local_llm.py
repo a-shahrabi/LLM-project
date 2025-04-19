@@ -356,6 +356,18 @@ model_to_save = model.module if hasattr(model, 'module') else model  # Take care
 model_to_save.save_pretrained(output_dir)
 tokenizer.save_pretrained(output_dir)
 
+# List all files in the model directory
+print("Files in model directory:")
+for file in os.listdir('./model_save/'):
+    file_path = os.path.join('./model_save/', file)
+    size_kb = os.path.getsize(file_path) / 1024  # Convert bytes to KB
+    print(f"{file}: {size_kb:.2f} KB")
+
+# Get size of model file in MB
+if os.path.exists('./model_save/model.safetensors'):
+    model_size_mb = os.path.getsize('./model_save/model.safetensors') / (1024 * 1024)  # Convert bytes to MB
+    print(f"Size of model.safetensors: {model_size_mb:.2f} MB")
+
 # Test the model on new unseen Twitter messages
 test_texts = [
     "If karma does not hit you in the face, I will.",
@@ -401,3 +413,9 @@ for text in test_texts:
     print(f"Predicted emotion: {emotion}")
     print(f"Confidence scores: {logits}")
     print()
+
+# Discussion on the largest file in the saved model
+print("\nDiscussion on the largest file in the saved model:")
+print("The largest file is 'model.safetensors', which contains the weights of the fine-tuned BERT model.")
+print("This file represents all the learned parameters (weights and biases) of the neural network.")
+print("It's large because BERT is a complex model with millions of parameters that were adjusted during training.")
