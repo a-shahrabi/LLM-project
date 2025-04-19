@@ -390,3 +390,14 @@ def predict_emotion(text, model, tokenizer):
        # Map back to emotion label
     emotion_map = {0: 'sadness', 1: 'joy', 2: 'love', 3: 'anger', 4: 'fear', 5: 'surprise'}
     predicted_emotion = emotion_map[predicted_class]
+
+    return predicted_emotion, logits.cpu().numpy()[0]
+
+# Test the model on the new messages
+print("\nTesting the model on new messages:")
+for text in test_texts:
+    emotion, logits = predict_emotion(text, model, tokenizer)
+    print(f"Text: '{text}'")
+    print(f"Predicted emotion: {emotion}")
+    print(f"Confidence scores: {logits}")
+    print()
