@@ -395,7 +395,9 @@ def predict_emotion(text, model, tokenizer):
     with torch.no_grad():
         outputs = model(input_ids, attention_mask=attention_mask)
     
-    
+    # Get the predicted label
+    logits = outputs.logits
+    predicted_class = torch.argmax(logits, dim=1).item()
 
        # Map back to emotion label
     emotion_map = {0: 'sadness', 1: 'joy', 2: 'love', 3: 'anger', 4: 'fear', 5: 'surprise'}
