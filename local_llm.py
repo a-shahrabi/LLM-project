@@ -115,6 +115,7 @@ def visualize_class_distribution(df: pd.DataFrame, label_names: List[str]) -> No
         plt.tight_layout()
         plt.savefig('emotion_distribution.png')  # Save the figure
         plt.show()
+        plt.close()  # Close the figure to prevent memory leaks
         logger.info("Class distribution visualization created")
     except Exception as e:
         logger.error(f"Error visualizing class distribution: {str(e)}")
@@ -136,6 +137,10 @@ def tokenize_dataset(
         Tuple of (input_ids, attention_masks, labels)
     """
     try:
+        # Ensure the dataframe is not empty
+        if df.empty:
+            raise ValueError("DataFrame is empty, cannot tokenize.")
+            
         # Find the maximum sentence length if not provided
         if max_len is None:
             max_len = 0
@@ -165,6 +170,10 @@ def tokenize_dataset(
             input_ids.append(encoded_dict['input_ids'])
             attention_masks.append(encoded_dict['attention_mask'])
         
+        # Check if we have any tokenized texts
+        if not input_ids:
+            raise ValueError("No texts were tokenized.")
+            
         # Convert lists to tensors
         input_ids = torch.cat(input_ids, dim=0)
         attention_masks = torch.cat(attention_masks, dim=0)
@@ -196,13 +205,24 @@ def prepare_datasets(
         Tuple of (train_dataset, val_dataset)
     """
     try:
+        # Check for minimum samples per class for stratification
+        label_counts = torch.bincount(labels)
+        min_count = torch.min(label_counts[label_counts > 0]).item()
+        
+        # Use stratify only if we have enough samples per class
+        stratify_param = labels if min_count >= 2 else None
+        if stratify_param is None:
+            logger.warning("Not enough samples per class for stratification")
+        
         # Split the data into train and validation sets
         train_inputs, val_inputs, train_labels, val_labels = train_test_split(
-            input_ids, labels, random_state=RANDOM_SEED, test_size=test_size, stratify=labels
+            input_ids, labels, random_state=RANDOM_SEED, test_size=test_size, 
+            stratify=stratify_param
         )
         
         train_masks, val_masks, _, _ = train_test_split(
-            attention_masks, labels, random_state=RANDOM_SEED, test_size=test_size, stratify=labels
+            attention_masks, labels, random_state=RANDOM_SEED, test_size=test_size, 
+            stratify=stratify_param
         )
         
         # Create DataFrames and convert to Datasets
@@ -285,7 +305,7 @@ def train_model(
             disable_tqdm=False,
             report_to="none",
             logging_dir=f"{output_dir}/logs",
-            logging_steps=len(train_dataset) // batch_size // 4,
+            logging_steps=max(1, len(train_dataset) // batch_size // 4),  # Ensure this is at least 1
             push_to_hub=False,
             log_level="error"
         )
@@ -355,7 +375,7 @@ def analyze_training_results(trainer: Trainer) -> pd.DataFrame:
         
         plt.subplot(2, 1, 2)
         plt.plot(metrics_df['Epoch'], metrics_df['Accuracy'], 'g-o', label='Accuracy')
-        plt.plot(metrics_df['Epoch'], metrics_df['F1 Score'], 'p-o', label='F1 Score')
+        plt.plot(metrics_df['Epoch'], metrics_df['F1 Score'], 'm-o', label='F1 Score')  # Changed 'p-o' to 'm-o'
         plt.xlabel('Epoch')
         plt.ylabel('Score')
         plt.title('Accuracy and F1 Score')
@@ -365,6 +385,7 @@ def analyze_training_results(trainer: Trainer) -> pd.DataFrame:
         plt.tight_layout()
         plt.savefig('training_metrics.png')
         plt.show()
+        plt.close()  # Close the figure to prevent memory leaks
         
         logger.info("Training analysis complete")
         return metrics_df
@@ -418,6 +439,7 @@ def evaluate_model(
         plt.tight_layout()
         plt.savefig('class_metrics.png')
         plt.show()
+        plt.close()  # Close the figure to prevent memory leaks
         
         # Confusion matrix
         cm = confusion_matrix(labels, preds)
@@ -429,6 +451,7 @@ def evaluate_model(
         plt.tight_layout()
         plt.savefig('confusion_matrix.png')
         plt.show()
+        plt.close()  # Close the figure to prevent memory leaks
         
         logger.info("Model evaluation and visualization complete")
     
@@ -524,6 +547,12 @@ def predict_emotion(
         
         # Get the predicted label
         logits = outputs.logits
+        
+        # Handle potential NaN values
+        if torch.isnan(logits).any():
+            logger.warning("NaN values detected in model output")
+            logits = torch.nan_to_num(logits, nan=0.0)
+            
         probabilities = torch.nn.functional.softmax(logits, dim=1)
         predicted_class = torch.argmax(logits, dim=1).item()
         
