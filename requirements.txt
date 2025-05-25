@@ -1,0 +1,8 @@
+wget
+transformers
+datasets
+torch
+pandas
+numpy
+matplotlib
+scikit-learn
