@@ -64,4 +64,15 @@ pip install torch transformers datasets pandas numpy scikit-learn matplotlib
 
 For GPU users, install the CUDA-matched PyTorch wheel from https://pytorch.org/get-started/locally/
 
-Project Structure
+Project Structure:
+
+├── data/                          # Optional local data (not committed)
+├── models/                        # Saved checkpoints / exported model
+├── notebooks/
+│   └── BERT_Twitter_Emotion_Classification.ipynb   # Main notebook
+├── src/
+│   ├── train.py                   # (Optional) script-based training entry
+│   ├── infer.py                   # (Optional) simple CLI inference
+│   └── utils.py                   # (Optional) helpers: tokenization, metrics, plotting
+├── README.md
+
