@@ -48,6 +48,6 @@ def predict(texts):
         probs = mdl(**enc).logits.softmax(-1)
         ids = probs.argmax(-1).tolist()
     return [(t, id2label[i], float(probs[j, i])) for j,(t,i) in enumerate(zip(texts, ids))]
-    ```
+    
     
 
