@@ -27,10 +27,12 @@ Local CSV also supported with columns: `text`, `label` in `{sadness, joy, love, 
 ```bash
 pip install torch transformers datasets pandas numpy scikit-learn matplotlib
 
+
 git clone https://github.com/your-username/bert-twitter-emotion.git
 cd bert-twitter-emotion
 jupyter notebook notebooks/BERT_Twitter_Emotion_Classification.ipynb
 
+```
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 
@@ -45,4 +47,5 @@ def predict(texts):
         probs = mdl(**enc).logits.softmax(-1)
         ids = probs.argmax(-1).tolist()
     return [(t, id2label[i], float(probs[j, i])) for j,(t,i) in enumerate(zip(texts, ids))]
+    ```
 
