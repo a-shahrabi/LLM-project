@@ -26,3 +26,7 @@ Local CSV also supported with columns: `text`, `label` in `{sadness, joy, love, 
 ## Requirements
 ```bash
 pip install torch transformers datasets pandas numpy scikit-learn matplotlib
+
+git clone https://github.com/your-username/bert-twitter-emotion.git
+cd bert-twitter-emotion
+jupyter notebook notebooks/BERT_Twitter_Emotion_Classification.ipynb
