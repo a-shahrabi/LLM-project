@@ -33,6 +33,7 @@ cd bert-twitter-emotion
 jupyter notebook notebooks/BERT_Twitter_Emotion_Classification.ipynb
 
 ```
+```
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 
